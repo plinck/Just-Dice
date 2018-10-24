@@ -54,14 +54,46 @@
 		DADE6C6B2180F13C00623383 /* Just Dice */ = {
 			isa = PBXGroup;
 			children = (
-				DADE6C6C2180F13C00623383 /* AppDelegate.swift */,
-				DADE6C6E2180F13C00623383 /* ViewController.swift */,
-				DADE6C702180F13C00623383 /* Main.storyboard */,
-				DADE6C732180F13D00623383 /* Assets.xcassets */,
-				DADE6C752180F13D00623383 /* LaunchScreen.storyboard */,
-				DADE6C782180F13D00623383 /* Info.plist */,
+				DADE6C7E2180F14E00623383 /* View */,
+				DADE6C802180F18200623383 /* Model */,
+				DADE6C7F2180F16200623383 /* Controller */,
+				DADE6C812180F1B700623383 /* Supporting Files */,
 			);
 			path = "Just Dice";
+			sourceTree = "<group>";
+		};
+		DADE6C7E2180F14E00623383 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DADE6C702180F13C00623383 /* Main.storyboard */,
+				DADE6C732180F13D00623383 /* Assets.xcassets */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DADE6C7F2180F16200623383 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				DADE6C6E2180F13C00623383 /* ViewController.swift */,
+				DADE6C6C2180F13C00623383 /* AppDelegate.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		DADE6C802180F18200623383 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		DADE6C812180F1B700623383 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DADE6C782180F13D00623383 /* Info.plist */,
+				DADE6C752180F13D00623383 /* LaunchScreen.storyboard */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
