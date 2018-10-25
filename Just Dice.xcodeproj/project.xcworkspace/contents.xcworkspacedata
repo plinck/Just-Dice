@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Just Dice.xcodeproj">
+      location = "group:/Users/paul/GitHub/Just Dice/Just Dice/View/ShakeRoll.mp3">
+   </FileRef>
+   <FileRef
+      location = "group:../../../Downloads/ShakeRoll.mp3">
+   </FileRef>
+   <FileRef
+      location = "self:">
    </FileRef>
 </Workspace>
