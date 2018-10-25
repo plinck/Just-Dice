@@ -15,6 +15,8 @@ class ViewController: UIViewController {
     var randomDiceIndex1: Int = 0
     var randomDiceIndex2: Int = 0
     
+    var player: AVAudioPlayer?
+
     @IBOutlet weak var diceImageView1: UIImageView!
     @IBOutlet weak var diceImageView2: UIImageView!
     
@@ -95,7 +97,6 @@ class ViewController: UIViewController {
 extension ViewController {
     
     func playSound() {
-        var player: AVAudioPlayer?
 
       guard let soundAsset = NSDataAsset(name: "ShakeRoll") else { return }
         
