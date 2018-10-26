@@ -15,20 +15,49 @@ class ViewController: UIViewController {
     var randomDiceIndex1: Int = 0
     var randomDiceIndex2: Int = 0
     
+    var transparentDiceMode = false
+    
     var player: AVAudioPlayer?
 
     @IBOutlet weak var diceImageView1: UIImageView!
     @IBOutlet weak var diceImageView2: UIImageView!
-
+    @IBOutlet weak var rollBtn: UIButton!
+    @IBOutlet weak var seeThruBtn: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Round corners of Play Button
+        rollBtn.layer.cornerRadius = 6
+        seeThruBtn.layer.cornerRadius = 6
+        seeThruBtn.setTitle("Make Transparent", for: .normal)
+
         moveDiceToOrigin()   // Make sure they are in proper spot relative to parent view
 
         diceImages = createImageArray(total: 6, imagePrefix: "dice")
 
     }
 
-     @IBAction func rollBtn(_ sender: Any) {
+    // Make dice transparent or opaque
+    @IBAction func seeThruBtn(_ sender: Any) {
+        if transparentDiceMode == false {
+            transparentDiceMode = true
+            diceImageView1.alpha = 0.4
+            diceImageView2.alpha = 0.4
+            seeThruBtn.setTitle("Make Opaque", for: .normal)
+        } else {
+            transparentDiceMode = false
+            diceImageView1.alpha = 1.0
+            diceImageView2.alpha = 1.0
+            seeThruBtn.setTitle("Make Transparent", for: .normal)
+        }
+    }
+    
+    @IBAction func seeThruMakeOpaque(_ sender: Any) {
+        diceImageView1.alpha = 1.0
+        diceImageView2.alpha = 1.0
+    }
+    
+    @IBAction func rollBtn(_ sender: Any) {
         pickImages()
     }
     
@@ -172,7 +201,7 @@ extension ViewController {
       guard let soundAsset = NSDataAsset(name: "ShakeRoll") else { return }
         
         do {
-            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, options: [])
+            try AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default, options: [])
             try AVAudioSession.sharedInstance().setActive(true)
                         
             /* The following line is required for the player to work on iOS 11. Change the file type accordingly*/
@@ -183,7 +212,7 @@ extension ViewController {
              player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileTypeMPEGLayer3) */
             
             guard let player = player else { return }
-            
+            player.volume = 1
             player.play()
             
         } catch let error {

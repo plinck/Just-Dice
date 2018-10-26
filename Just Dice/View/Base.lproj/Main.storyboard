@@ -17,19 +17,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4dq-oA-uoc">
-                                <rect key="frame" x="132.5" y="802" width="149" height="60"/>
-                                <color key="backgroundColor" red="0.88235294119999996" green="0.34509803919999998" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <size key="titleShadowOffset" width="2" height="2"/>
-                                <state key="normal" title="Roll Dice">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="rollBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="T7Y-YO-VvU"/>
-                                </connections>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="diceeLogo" translatesAutoresizingMaskIntoConstraints="NO" id="TP7-CH-idI">
                                 <rect key="frame" x="61.5" y="54" width="291" height="87"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -56,14 +43,61 @@
                                     <constraint firstAttribute="bottom" secondItem="OI1-nP-raO" secondAttribute="bottom" id="WyX-kf-Asd"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MOW-3S-lBH">
+                                <rect key="frame" x="0.0" y="802" width="414" height="60"/>
+                                <subviews>
+                                    <button autoresizesSubviews="NO" opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="hdU-6a-ES3">
+                                        <rect key="frame" x="284" y="0.0" width="120" height="60"/>
+                                        <color key="backgroundColor" red="0.30608989450000001" green="0.66253647920000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="120" id="FZ5-6B-BxN"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
+                                        <state key="normal" title="See Thru (hold)">
+                                            <color key="titleColor" cocoaTouchSystemColor="lightTextColor"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="seeThruBtn:" destination="BYZ-38-t0r" eventType="touchDown" id="abp-rE-Wnq"/>
+                                            <action selector="seeThruMakeOpaque:" destination="BYZ-38-t0r" eventType="touchCancel" id="3dC-6o-GLx"/>
+                                        </connections>
+                                    </button>
+                                    <button autoresizesSubviews="NO" opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4dq-oA-uoc">
+                                        <rect key="frame" x="10" y="0.0" width="120" height="60"/>
+                                        <color key="backgroundColor" red="0.30608989454110436" green="0.66253647917138125" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="120" id="khB-Hd-BYJ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
+                                        <state key="normal" title="Roll">
+                                            <color key="titleColor" cocoaTouchSystemColor="lightTextColor"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="rollBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="T7Y-YO-VvU"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="4dq-oA-uoc" firstAttribute="leading" secondItem="MOW-3S-lBH" secondAttribute="leading" constant="10" id="2ZT-ht-uis"/>
+                                    <constraint firstItem="4dq-oA-uoc" firstAttribute="top" secondItem="MOW-3S-lBH" secondAttribute="top" id="87e-sD-gRO"/>
+                                    <constraint firstAttribute="bottom" secondItem="4dq-oA-uoc" secondAttribute="bottom" id="89i-S9-LYB"/>
+                                    <constraint firstAttribute="trailing" secondItem="hdU-6a-ES3" secondAttribute="trailing" constant="10" id="9p1-Lo-daV"/>
+                                    <constraint firstItem="hdU-6a-ES3" firstAttribute="top" secondItem="MOW-3S-lBH" secondAttribute="top" id="Ihf-bB-7M6"/>
+                                    <constraint firstAttribute="bottom" secondItem="4dq-oA-uoc" secondAttribute="bottom" id="b0l-fR-zOc"/>
+                                    <constraint firstAttribute="height" constant="60" id="gwm-hg-wud"/>
+                                    <constraint firstAttribute="bottom" secondItem="hdU-6a-ES3" secondAttribute="bottom" id="hRu-Pj-kmN"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0055613736622035503" green="0.56950467824935913" blue="0.25686278939247131" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="4dq-oA-uoc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="3Rv-OA-g6J"/>
                             <constraint firstItem="xee-0M-j1g" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="110" id="5fZ-jR-B8h"/>
-                            <constraint firstItem="4dq-oA-uoc" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="LZD-yg-Bbe"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="MOW-3S-lBH" secondAttribute="trailing" id="PeQ-uV-fUz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="xee-0M-j1g" secondAttribute="trailing" constant="10" id="WTs-No-amj"/>
+                            <constraint firstItem="MOW-3S-lBH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="XAc-MV-mWH"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="xee-0M-j1g" secondAttribute="bottom" constant="80" id="bg9-lh-Vdy"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="MOW-3S-lBH" secondAttribute="bottom" id="pW8-yd-Pi5"/>
                             <constraint firstItem="xee-0M-j1g" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="uph-Nf-Ixz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -71,6 +105,8 @@
                     <connections>
                         <outlet property="diceImageView1" destination="fc2-S2-bsd" id="b70-qi-i0n"/>
                         <outlet property="diceImageView2" destination="ZiU-jp-2Yg" id="2Tn-Ij-cMI"/>
+                        <outlet property="rollBtn" destination="4dq-oA-uoc" id="sLt-aE-g95"/>
+                        <outlet property="seeThruBtn" destination="hdU-6a-ES3" id="ASM-eg-87L"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
