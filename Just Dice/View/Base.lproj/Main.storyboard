@@ -35,8 +35,11 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="xee-0M-j1g" userLabel="Roll Area">
-                                <rect key="frame" x="10" y="154" width="394" height="616"/>
+                                <rect key="frame" x="10" y="154" width="394" height="628"/>
                                 <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="casinotable" translatesAutoresizingMaskIntoConstraints="NO" id="OI1-nP-raO">
+                                        <rect key="frame" x="0.0" y="0.0" width="394" height="628"/>
+                                    </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="dice3" translatesAutoresizingMaskIntoConstraints="NO" id="fc2-S2-bsd">
                                         <rect key="frame" x="37" y="496" width="120" height="120"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -46,15 +49,21 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="OI1-nP-raO" firstAttribute="top" secondItem="xee-0M-j1g" secondAttribute="top" id="9SH-wa-HKy"/>
+                                    <constraint firstItem="OI1-nP-raO" firstAttribute="leading" secondItem="xee-0M-j1g" secondAttribute="leading" id="Vky-4v-V0j"/>
+                                    <constraint firstAttribute="trailing" secondItem="OI1-nP-raO" secondAttribute="trailing" id="WQf-GK-rB2"/>
+                                    <constraint firstAttribute="bottom" secondItem="OI1-nP-raO" secondAttribute="bottom" id="WyX-kf-Asd"/>
+                                </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.22373111292057271" green="0.50001982868020312" blue="0.26736910648282147" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.0055613736622035503" green="0.56950467824935913" blue="0.25686278939247131" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="4dq-oA-uoc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="3Rv-OA-g6J"/>
                             <constraint firstItem="xee-0M-j1g" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="110" id="5fZ-jR-B8h"/>
                             <constraint firstItem="4dq-oA-uoc" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="LZD-yg-Bbe"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="xee-0M-j1g" secondAttribute="trailing" constant="10" id="WTs-No-amj"/>
-                            <constraint firstItem="4dq-oA-uoc" firstAttribute="top" secondItem="xee-0M-j1g" secondAttribute="bottom" constant="32" id="bg9-lh-Vdy"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="xee-0M-j1g" secondAttribute="bottom" constant="80" id="bg9-lh-Vdy"/>
                             <constraint firstItem="xee-0M-j1g" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="uph-Nf-Ixz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -70,6 +79,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="casinotable" width="465" height="448"/>
         <image name="dice3" width="54" height="54"/>
         <image name="dice5" width="54" height="54"/>
         <image name="diceeLogo" width="291.5" height="87"/>
