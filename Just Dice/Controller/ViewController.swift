@@ -124,18 +124,43 @@ class ViewController: UIViewController {
         
         self.diceImageView1.frame.origin.y = parentViewBottomY - (diceHeight)    // off bottom by di height
         self.diceImageView2.frame.origin.y = parentViewBottomY - (diceHeight)
+        self.diceImageView1.frame.origin.x = 32                                  // from left
+        self.diceImageView2.frame.origin.x = myRollAreaView!.frame.width - self.diceImageView1.frame.width - 32
     }
     
     // MARK: - Move the dice within their parent view
+    // Here is the definition of animatiton.  I need to understand better sincd I dont totally get why it works
+    // class func animate(withDuration duration: TimeInterval, animations: @escaping () -> Void, completion: ((Bool) -> Void)? = nil)
+    // It appears that the animations are a completion and the is also a completion handler that runs
+    // when everything is done.  I know I learned this but forgot.
     func moveDice() {
-        // Animate them from the bottom to the top of the view
-        UIView.animate(withDuration: 1.0, animations: {
-            () -> Void in
-            self.diceImageView1.frame.origin.y = 8    // destination
-            self.diceImageView2.frame.origin.y = 8
-        })
-    }
+        // Setup where the final dice can land making sure they stay on their half
+        // of the view so they dont go on top of each other
+        let halfwayY = ((diceImageView1.superview?.frame.height)! / 2)
+        // let lastValidY = (diceImageView1.superview?.frame.height)! - diceImageView1.frame.height
+        let halfwayX = ((diceImageView1.superview?.frame.width)! / 2)
+        let lastValidX = (diceImageView1.superview?.frame.width)! - diceImageView1.frame.width
+        let y1MoveTo = Int.random(in: 100...Int(halfwayY))
+        let y2MoveTo = Int.random(in: 100...Int(halfwayY))
+        let x1MoveTo = Int.random(in: 8...Int(halfwayX - diceImageView1.frame.width))
+        let x2MoveTo = Int.random(in: Int(halfwayX)...Int(lastValidX))
 
+        // Animate them from the bottom to the top, bounce off top to random spot near middle
+        UIView.animate(withDuration: 0.5, animations: {
+            () -> Void in
+            self.diceImageView1.frame.origin.y = 1    // destination y - bumop the top
+            self.diceImageView2.frame.origin.y = 1
+        }) {_ in                                        // Explain this, it works but I dont get it
+            UIView.animate(withDuration: 0.5, animations: {     // After up move done, move down a little
+                () -> Void in
+                self.diceImageView1.frame.origin.y = CGFloat(y1MoveTo)       // destination
+                self.diceImageView2.frame.origin.y = CGFloat(y2MoveTo)
+                self.diceImageView1.frame.origin.x = CGFloat(x1MoveTo)      // destination x
+                self.diceImageView2.frame.origin.x = CGFloat(x2MoveTo)
+            })
+        }
+    }
+    
 }
 
 // MARK: -
