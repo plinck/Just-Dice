@@ -30,6 +30,10 @@ class ViewController: UIViewController {
         rollBtn.layer.cornerRadius = 6
         seeThruBtn.layer.cornerRadius = 6
         seeThruBtn.setTitle("Make Transparent", for: .normal)
+        rollBtn.setImage(UIImage(named: "Roll Button Up.png"), for: .normal)
+        rollBtn.setImage(UIImage(named: "Roll Button Down.png"), for: .highlighted)
+        rollBtn.setImage(UIImage(named: "Roll Button Down.png"), for: .focused)
+        rollBtn.setImage(UIImage(named: "Roll Button Down.png"), for: .selected)
 
         moveDiceToOrigin()   // Make sure they are in proper spot relative to parent view
 
@@ -59,6 +63,11 @@ class ViewController: UIViewController {
     
     @IBAction func rollBtn(_ sender: Any) {
         pickImages()
+    }
+    
+    // Change background image while being pressed
+    @IBAction func rollBtnPushingDown(_ sender: Any) {
+        
     }
     
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {

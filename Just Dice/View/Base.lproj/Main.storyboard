@@ -22,10 +22,10 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="xee-0M-j1g" userLabel="Roll Area">
-                                <rect key="frame" x="10" y="154" width="394" height="628"/>
+                                <rect key="frame" x="10" y="154" width="394" height="618"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="casinotable" translatesAutoresizingMaskIntoConstraints="NO" id="OI1-nP-raO">
-                                        <rect key="frame" x="0.0" y="0.0" width="394" height="628"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="394" height="618"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="dice3" translatesAutoresizingMaskIntoConstraints="NO" id="fc2-S2-bsd">
                                         <rect key="frame" x="37" y="496" width="120" height="120"/>
@@ -43,11 +43,11 @@
                                     <constraint firstAttribute="bottom" secondItem="OI1-nP-raO" secondAttribute="bottom" id="WyX-kf-Asd"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MOW-3S-lBH">
-                                <rect key="frame" x="0.0" y="802" width="414" height="60"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MOW-3S-lBH" userLabel="Bottom View">
+                                <rect key="frame" x="0.0" y="782" width="414" height="80"/>
                                 <subviews>
                                     <button autoresizesSubviews="NO" opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="hdU-6a-ES3">
-                                        <rect key="frame" x="284" y="0.0" width="120" height="60"/>
+                                        <rect key="frame" x="284" y="0.0" width="120" height="80"/>
                                         <color key="backgroundColor" red="0.30608989450000001" green="0.66253647920000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="120" id="FZ5-6B-BxN"/>
@@ -62,19 +62,16 @@
                                             <action selector="seeThruMakeOpaque:" destination="BYZ-38-t0r" eventType="touchCancel" id="3dC-6o-GLx"/>
                                         </connections>
                                     </button>
-                                    <button autoresizesSubviews="NO" opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4dq-oA-uoc">
-                                        <rect key="frame" x="10" y="0.0" width="120" height="60"/>
-                                        <color key="backgroundColor" red="0.30608989454110436" green="0.66253647917138125" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4dq-oA-uoc">
+                                        <rect key="frame" x="10" y="0.0" width="80" height="80"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="120" id="khB-Hd-BYJ"/>
+                                            <constraint firstAttribute="width" constant="80" id="laW-Kt-TyQ"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
-                                        <state key="normal" title="Roll">
-                                            <color key="titleColor" cocoaTouchSystemColor="lightTextColor"/>
-                                        </state>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <state key="normal" title="Roll" image="Roll Button Up"/>
                                         <connections>
                                             <action selector="rollBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="T7Y-YO-VvU"/>
+                                            <action selector="rollBtnPushingDown:" destination="BYZ-38-t0r" eventType="touchDown" id="pEh-Ry-ZnV"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -84,8 +81,7 @@
                                     <constraint firstAttribute="bottom" secondItem="4dq-oA-uoc" secondAttribute="bottom" id="89i-S9-LYB"/>
                                     <constraint firstAttribute="trailing" secondItem="hdU-6a-ES3" secondAttribute="trailing" constant="10" id="9p1-Lo-daV"/>
                                     <constraint firstItem="hdU-6a-ES3" firstAttribute="top" secondItem="MOW-3S-lBH" secondAttribute="top" id="Ihf-bB-7M6"/>
-                                    <constraint firstAttribute="bottom" secondItem="4dq-oA-uoc" secondAttribute="bottom" id="b0l-fR-zOc"/>
-                                    <constraint firstAttribute="height" constant="60" id="gwm-hg-wud"/>
+                                    <constraint firstAttribute="height" constant="80" id="gwm-hg-wud"/>
                                     <constraint firstAttribute="bottom" secondItem="hdU-6a-ES3" secondAttribute="bottom" id="hRu-Pj-kmN"/>
                                 </constraints>
                             </view>
@@ -96,7 +92,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="MOW-3S-lBH" secondAttribute="trailing" id="PeQ-uV-fUz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="xee-0M-j1g" secondAttribute="trailing" constant="10" id="WTs-No-amj"/>
                             <constraint firstItem="MOW-3S-lBH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="XAc-MV-mWH"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="xee-0M-j1g" secondAttribute="bottom" constant="80" id="bg9-lh-Vdy"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="xee-0M-j1g" secondAttribute="bottom" constant="90" id="bg9-lh-Vdy"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="MOW-3S-lBH" secondAttribute="bottom" id="pW8-yd-Pi5"/>
                             <constraint firstItem="xee-0M-j1g" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="uph-Nf-Ixz"/>
                         </constraints>
@@ -115,6 +111,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Roll Button Up" width="128" height="150"/>
         <image name="casinotable" width="465" height="448"/>
         <image name="dice3" width="54" height="54"/>
         <image name="dice5" width="54" height="54"/>
