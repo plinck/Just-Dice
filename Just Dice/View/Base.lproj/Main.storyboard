@@ -21,7 +21,7 @@
                                 <rect key="frame" x="61.5" y="54" width="291" height="87"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="xee-0M-j1g" userLabel="Roll Area">
+                            <view tag="100" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="xee-0M-j1g" userLabel="Roll Area">
                                 <rect key="frame" x="10" y="154" width="394" height="618"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="casinotable" translatesAutoresizingMaskIntoConstraints="NO" id="OI1-nP-raO">
@@ -43,7 +43,7 @@
                                     <constraint firstAttribute="bottom" secondItem="OI1-nP-raO" secondAttribute="bottom" id="WyX-kf-Asd"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MOW-3S-lBH" userLabel="Bottom View">
+                            <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MOW-3S-lBH" userLabel="Bottom View">
                                 <rect key="frame" x="0.0" y="782" width="414" height="80"/>
                                 <subviews>
                                     <button autoresizesSubviews="NO" opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="hdU-6a-ES3">

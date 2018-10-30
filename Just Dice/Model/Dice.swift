@@ -54,20 +54,25 @@ class Dice {
     
     // MARK: -
     // change the size of the dice to ensure they all fit in the superview without touching.
-    func makeCorrectSize(parentViewWidth: CGFloat, parentViewHeight: CGFloat, maximumWidth: CGFloat, totalDice: Int) {
-        var newWidth: CGFloat = 0.0                        // Make sure all fit with some space
-        let totalDiceFloat = CGFloat(totalDice)
+    func makeCorrectSize(containerView: UIView, maximumWidth: CGFloat, totalDice: Int) {
+        let parentViewWidth = containerView.frame.width
+        let parentViewHeight = containerView.frame.height
 
+        var newWidth: CGFloat = 0.0                        // Make sure all fit with some space
+ 
         let ratio = imageView.frame.width / imageView.frame.height
         
         if parentViewWidth > parentViewHeight {
-            newWidth = parentViewHeight / (totalDiceFloat) + 8.0
+            newWidth = parentViewHeight / CGFloat(totalDice) - 8.0
         } else {
-            newWidth = parentViewWidth / (totalDiceFloat) + 8.0
+            newWidth = parentViewWidth / CGFloat(totalDice) - 8.0
         }
  
         if newWidth > maximumWidth {
             newWidth = maximumWidth                          // Dont want them huge
+        }
+        if newWidth < 12.0 {
+            newWidth = 12.0                          // Dont want them huge
         }
         let newHeight = newWidth / ratio                    // Its a square so this is not totallu=y necessary
         

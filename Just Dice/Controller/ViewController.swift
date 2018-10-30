@@ -10,15 +10,12 @@ import UIKit
 import AVFoundation
 
 class ViewController: UIViewController {
-    
-    var randomDiceIndex1: Int = 0
-    var randomDiceIndex2: Int = 0
-    
     var transparentDiceMode = false
-    
     var player: AVAudioPlayer?
     
-    var dice : [Dice] = []                          // Collection of all the dice
+    var dice : [Dice] = []          // Collection of all the dice
+    let rollViewTag = 100           // This is the tag so I can find the Roll View for placing the dice
+    var rollView = UIView()         // The rollView to keep dice in
 
     @IBOutlet weak var diceImageView1: UIImageView!
     @IBOutlet weak var diceImageView2: UIImageView!
@@ -35,8 +32,17 @@ class ViewController: UIViewController {
         rollBtn.setImage(UIImage(named: "Roll Button Down.png"), for: .highlighted)
         rollBtn.setImage(UIImage(named: "Roll Button Down.png"), for: .focused)
         rollBtn.setImage(UIImage(named: "Roll Button Down.png"), for: .selected)
+        guard let myRollView =  view.viewWithTag(rollViewTag) else {
+            print("Fatal Error, Cant find Roll View with tag:\(rollViewTag)")
+            return
+        }
+        rollView = myRollView
+        
+        // Get ride of th storyboard imageViews
+        diceImageView1.isHidden = true
+        diceImageView2.isHidden = true
 
-        createDice(2)                                       // Create the dice to roll
+        createDice(5)                                       // Create the dice to roll
         moveDiceToOrigin()   // Make sure they are in proper spot relative to parent view
      }
     
@@ -44,20 +50,23 @@ class ViewController: UIViewController {
     @IBAction func seeThruBtn(_ sender: Any) {
         if transparentDiceMode == false {
             transparentDiceMode = true
-            diceImageView1.alpha = 0.4
-            diceImageView2.alpha = 0.4
-            seeThruBtn.setTitle("Make Opaque", for: .normal)
+            for i in 0..<dice.count {
+                dice[i].imageView.alpha = 0.3
+            }
+             seeThruBtn.setTitle("Make Opaque", for: .normal)
         } else {
             transparentDiceMode = false
-            diceImageView1.alpha = 1.0
-            diceImageView2.alpha = 1.0
+            for i in 0..<dice.count {
+                dice[i].imageView.alpha = 1.0
+            }
             seeThruBtn.setTitle("Make Transparent", for: .normal)
         }
     }
     
     @IBAction func seeThruMakeOpaque(_ sender: Any) {
-        diceImageView1.alpha = 1.0
-        diceImageView2.alpha = 1.0
+        for i in 0..<dice.count {
+            dice[i].imageView.alpha = 1.0
+        }
     }
     
     @IBAction func rollBtn(_ sender: Any) {
@@ -78,25 +87,18 @@ class ViewController: UIViewController {
     // MARK: -
     // create the number of dice to use
     func createDice(_ numberOfDice: Int) {
-        for i in 0..<numberOfDice {
-            // Hack for now.  Need to generate UIImageView(s) for dice images on fly in array
-            // And usage the imageView associate with that dice
-            var imageView : UIImageView
+        for _ in 0..<numberOfDice {
+            // Create a UIView with an image for every dice created
+            let imageView = UIImageView()
             
-            switch i {
-            case 0:
-                imageView = diceImageView1
-            case 1:
-                imageView = diceImageView2
-            default:
-                imageView = diceImageView1
-            }
- 
-            let myRollAreaView = imageView.superview            // To properly size dice
+            imageView.image = UIImage(named:"dice6")
+            imageView.frame.size = CGSize(width: 120.0, height: 120.0)
+            
             let idice = Dice(imageView: imageView)
-            idice.makeCorrectSize(parentViewWidth: myRollAreaView!.frame.width, parentViewHeight: myRollAreaView!.frame.width, maximumWidth: 120.0, totalDice: numberOfDice)
-
+            idice.makeCorrectSize(containerView: rollView, maximumWidth: 120.0, totalDice: numberOfDice)
             self.dice.append(idice)
+            
+            self.rollView.addSubview(imageView)
         }
     }
     
