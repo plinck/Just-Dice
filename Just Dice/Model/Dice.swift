@@ -5,7 +5,11 @@
 //  Created by Paul Linck on 10/30/18.
 //  Copyright © 2018 Paul Linck. All rights reserved.
 //
-
+// NOTE: - Dice isnt really a MODEL class since it has a lot of view characteristics
+// To be pure, I think I need a true model dice object with data about and then have another diceView
+// Object that inherits from it and adds the view and image information.
+// For the Dice object to be pure, I should not need UIKit
+//
 import UIKit
 
 // This class has all the informaton for one dice
@@ -28,6 +32,7 @@ class Dice {
     // MARK: -
     // Build the list of images faces for the dice
     // using the assets in xcassets
+    // This is a STATIC array since all objects of this class share the same set of faces
     func createImageFaceArray(total: Int, imagePrefix: String) -> [UIImage] {
         var imageFaceArray: [UIImage] = []
         

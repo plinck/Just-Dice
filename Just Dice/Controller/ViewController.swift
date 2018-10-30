@@ -38,7 +38,7 @@ class ViewController: UIViewController {
         }
         rollView = myRollView
         
-        // Get ride of th storyboard imageViews
+        // Get ride of th storyboard imageViews - just for design
         diceImageView1.isHidden = true
         diceImageView2.isHidden = true
 
@@ -85,7 +85,7 @@ class ViewController: UIViewController {
     }
     
     // MARK: -
-    // create the number of dice to use
+    // create all the dice
     func createDice(_ numberOfDice: Int) {
         for _ in 0..<numberOfDice {
             // Create a UIView with an image for every dice created
