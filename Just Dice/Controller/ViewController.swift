@@ -11,13 +11,14 @@ import AVFoundation
 
 class ViewController: UIViewController {
     
-    var diceImages: Array<UIImage> = []
     var randomDiceIndex1: Int = 0
     var randomDiceIndex2: Int = 0
     
     var transparentDiceMode = false
     
     var player: AVAudioPlayer?
+    
+    var dice : [Dice] = []                          // Collection of all the dice
 
     @IBOutlet weak var diceImageView1: UIImageView!
     @IBOutlet weak var diceImageView2: UIImageView!
@@ -35,12 +36,10 @@ class ViewController: UIViewController {
         rollBtn.setImage(UIImage(named: "Roll Button Down.png"), for: .focused)
         rollBtn.setImage(UIImage(named: "Roll Button Down.png"), for: .selected)
 
+        createDice(2)                                       // Create the dice to roll
         moveDiceToOrigin()   // Make sure they are in proper spot relative to parent view
-
-        diceImages = createImageArray(total: 6, imagePrefix: "dice")
-
-    }
-
+     }
+    
     // Make dice transparent or opaque
     @IBAction func seeThruBtn(_ sender: Any) {
         if transparentDiceMode == false {
@@ -70,8 +69,31 @@ class ViewController: UIViewController {
         
     }
     
+    // MARK: -
+    // Allows shake to roll the dice
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         pickImages()
+    }
+    
+    // MARK: -
+    // create the number of dice to use
+    func createDice(_ numberOfDice: Int) {
+        for i in 0..<numberOfDice {
+            // Hack for now.  Need to generate UIImageView(s) for dice images on fly in array
+            // And usage the imageView associate with that dice
+            var imageView : UIImageView
+            
+            switch i {
+            case 0:
+                imageView = diceImageView1
+            case 1:
+                imageView = diceImageView2
+            default:
+                imageView = diceImageView1
+            }
+            let idice = Dice(imageView: imageView)
+            self.dice.append(idice)
+        }
     }
     
     func createImageArray(total: Int, imagePrefix: String) -> [UIImage] {
@@ -89,60 +111,58 @@ class ViewController: UIViewController {
 
     // MARK: -
     // Animates an images using the list of images
-    func animate(imageView: UIImageView, images: [UIImage]) {
+    func animate(_ dice: [Dice], for animateDuration: Double) {
         
         // This animates through the different images to show dice changing numbers
-        imageView.animationImages = images
-        imageView.animationDuration = 1.0
-        imageView.animationRepeatCount = 1
-        imageView.startAnimating()
+        for i in 0..<dice.count {
+            var imageView : UIImageView
+
+            imageView = dice[i].imageView
+            imageView.animationImages = Dice.imageFaces          // imageFaces is class level / Static array
+            imageView.animationDuration = animateDuration
+            imageView.animationRepeatCount = 1
+            imageView.startAnimating()
+        }
         
         // This rotates and changes the size and moves the view that contains the image
-        UIView.animate(withDuration: 1.0, animations: {
+        UIView.animate(withDuration: animateDuration, animations: {
             () -> Void in
-            let rotation1: Int = Int.random(in: 180...360)
-            let rotation2: Int = -rotation1
-            
-            // Rotate and scale - must use concatention to do multiple transforms
-            var tt1 = CGAffineTransform(rotationAngle: CGFloat(rotation1))
-            // Scale
-            tt1 = tt1.concatenating(CGAffineTransform(scaleX: 5, y: 5))
-
-            self.diceImageView1.transform = tt1
-            
-            var tt2 = CGAffineTransform(rotationAngle: CGFloat(rotation2))
-            tt2 = tt2.concatenating(CGAffineTransform(scaleX: 2.0, y: 2.0))
-            self.diceImageView2.transform = tt2
-
+            for i in 0..<dice.count {
+                var rotation: Int = Int.random(in: 180...360)
+                if (i % 2) == 0 {
+                    rotation = -rotation
+                }
+                // Rotate
+                var transform = CGAffineTransform(rotationAngle: CGFloat(rotation))
+                // Scale - must use concatention to do multiple transforms
+                transform = transform.concatenating(CGAffineTransform(scaleX: 5, y: 5))
+                dice[i].imageView.transform = transform
+            }
         })
     }
     
-    // Put dice back to normal starting position
-    func resetAnimate() {
-        self.diceImageView1.transform = CGAffineTransform(rotationAngle: CGFloat(0))
-        self.diceImageView2.transform = CGAffineTransform(rotationAngle: CGFloat(0))
-    }
-    
+    // MARK: -
+    // roll the dice, randomize each one and select the correct face based on that
     func pickImages() {
         
         moveDiceToOrigin()
         
-        self.playSound()
+        //self.playSound()
         
         // Move, then amnimate
         moveDice()
         
-        animate(imageView: diceImageView1, images: diceImages)
-        randomDiceIndex1 = Int.random(in: 0...5)
-        diceImageView1.image = diceImages[randomDiceIndex1]
- 
-        animate(imageView: diceImageView2, images: diceImages)
-        randomDiceIndex2 = Int.random(in: 0...5)
-        diceImageView2.image = diceImages[randomDiceIndex2]
-        
-        resetAnimate()
-    }
+        animate(dice, for: 1.0)          // Animate over 1.0 seconds
+
+        for i in 0..<dice.count {
+            dice[i].randomize()
+            dice[i].imageView.image = dice[i].imageFace()
+            dice[i].imageView.transform = CGAffineTransform(rotationAngle: CGFloat(0))
+        }
+}
     
+    // NOTE: - Only works for two dice.  Need to make sure the dice move and/or get smaller to not roll on
+    // top of each other
     // MARK: -
     // NOTE: Very important and took me a whole to figure out.  The frame for the UIImage views
     // -- the dice in this case -- is relatibve to their parent view (i.e. superview).  Therefore,
@@ -155,46 +175,61 @@ class ViewController: UIViewController {
     //
     // Move the dice back to their original position just above the bottom of their parent view
     func moveDiceToOrigin() {
-        let myRollAreaView = diceImageView1.superview
-        let diceHeight = self.diceImageView1.frame.height
+        let myRollAreaView = dice[0].imageView.superview
+        let diceHeight = dice[0].imageView.frame.height
         let parentViewBottomY = myRollAreaView!.frame.height           // Bottom of the view they are contained in
         
-        
-        self.diceImageView1.frame.origin.y = parentViewBottomY - (diceHeight)    // off bottom by di height
-        self.diceImageView2.frame.origin.y = parentViewBottomY - (diceHeight)
-        self.diceImageView1.frame.origin.x = 32                                  // from left
-        self.diceImageView2.frame.origin.x = myRollAreaView!.frame.width - self.diceImageView1.frame.width - 32
+        var currentDiceX: CGFloat = 8.0
+        for i in 0..<self.dice.count {
+            self.dice[i].imageView.frame.origin.y = parentViewBottomY - (diceHeight)     //off bottom by di height
+            self.dice[i].imageView.frame.origin.x = currentDiceX
+            currentDiceX += (self.dice[i].imageView.frame.width + 8.0)                    // move over die width
+        }
     }
     
+    // TODO: Currently only works / avoids collision with two dice.
     // MARK: - Move the dice within their parent view
     // Here is the definition of animatiton.  I need to understand better sincd I dont totally get why it works
     // class func animate(withDuration duration: TimeInterval, animations: @escaping () -> Void, completion: ((Bool) -> Void)? = nil)
     // It appears that the animations are a completion and the is also a completion handler that runs
     // when everything is done.  I know I learned this but forgot.
     func moveDice() {
-        // Setup where the final dice can land making sure they stay on their half
-        // of the view so they dont go on top of each other
+        // Setup where the final dice can land making sure they stay on their part
+        // of the superview so they dont go on top of each other
+        var yMoveTo : [CGFloat] = []
+        var xMoveTo : [CGFloat] = []
+
         let halfwayY = ((diceImageView1.superview?.frame.height)! / 2)
         // let lastValidY = (diceImageView1.superview?.frame.height)! - diceImageView1.frame.height
-        let halfwayX = ((diceImageView1.superview?.frame.width)! / 2)
-        let lastValidX = (diceImageView1.superview?.frame.width)! - diceImageView1.frame.width
-        let y1MoveTo = Int.random(in: 100...Int(halfwayY))
-        let y2MoveTo = Int.random(in: 100...Int(halfwayY))
-        let x1MoveTo = Int.random(in: 8...Int(halfwayX - diceImageView1.frame.width))
-        let x2MoveTo = Int.random(in: Int(halfwayX)...Int(lastValidX))
+        // let halfwayX = ((diceImageView1.superview?.frame.width)! / 2)
+        // let lastValidX = (diceImageView1.superview?.frame.width)! - diceImageView1.frame.width
 
-        // Animate them from the bottom to the top, bounce off top to random spot near middle
+        // for now, these move to random y spots but fixed x to ensure no overlap
+        // that needs to be fixed, but i need to think about it more first
+        var currentDiceX: CGFloat = 8.0
+        for i in 0..<self.dice.count {
+            yMoveTo.append(CGFloat(Int.random(in: 50...Int(halfwayY))))
+            xMoveTo.append(currentDiceX)
+            currentDiceX += (self.dice[i].imageView.frame.width + 8.0)                    // move over die width
+            // OLD CODE
+            // xMoveTo[i] = CGFloat(Int.random(in: 8...Int(halfwayX - diceImageView1.frame.width)))
+            // let x2MoveTo = Int.random(in: Int(halfwayX)...Int(lastValidX))
+            // self.dice[i].imageView.frame.origin.x = currentDiceX
+        }
+
+        // Animate them from the bottom to the top, bounce off top, then to random spot near middle
         UIView.animate(withDuration: 0.5, animations: {
             () -> Void in
-            self.diceImageView1.frame.origin.y = 1    // destination y - bumop the top
-            self.diceImageView2.frame.origin.y = 1
-        }) {_ in                                        // Explain this, it works but I dont get it
+            for i in 0..<self.dice.count {
+                self.dice[i].imageView.frame.origin.y = 1       // animate to top of super view
+            }
+         }) {_ in                                               // Wait until first animae completes, then do this
             UIView.animate(withDuration: 0.5, animations: {     // After up move done, move down a little
                 () -> Void in
-                self.diceImageView1.frame.origin.y = CGFloat(y1MoveTo)       // destination
-                self.diceImageView2.frame.origin.y = CGFloat(y2MoveTo)
-                self.diceImageView1.frame.origin.x = CGFloat(x1MoveTo)      // destination x
-                self.diceImageView2.frame.origin.x = CGFloat(x2MoveTo)
+                for i in 0..<self.dice.count {
+                    self.dice[i].imageView.frame.origin.y = yMoveTo[i]
+                    self.dice[i].imageView.frame.origin.x = xMoveTo[i]
+                }
             })
         }
     }
@@ -212,7 +247,7 @@ extension ViewController {
         do {
             try AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default, options: [])
             try AVAudioSession.sharedInstance().setActive(true)
-                        
+
             /* The following line is required for the player to work on iOS 11. Change the file type accordingly*/
             // player = try AVAudioPlayer(contentsOf: soundAsset, fileTypeHint: AVFileType.mp3.rawValue)
             player = try AVAudioPlayer(data:soundAsset.data)
