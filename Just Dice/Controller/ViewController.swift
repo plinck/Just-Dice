@@ -35,7 +35,6 @@ class ViewController: UIViewController {
         rollBtn.setImage(UIImage(named: "Roll Button Down.png"), for: .highlighted)
         rollBtn.setImage(UIImage(named: "Roll Button Down.png"), for: .focused)
         rollBtn.setImage(UIImage(named: "Roll Button Down.png"), for: .selected)
-        
 
         guard let myRollView =  view.viewWithTag(rollViewTag) else {
             print("Fatal Error, Cant find Roll View with tag:\(rollViewTag)")
@@ -128,7 +127,7 @@ class ViewController: UIViewController {
         moveDiceToOrigin()                  // put back to start for the roll to begin
         
         // TODO: - Figure out how to get this working, it was giving gobs of weird errors
-        //self.playSound()
+        self.playSound()
         
         // Move, then animate - since timing is same, the move and animate simultaneously
         moveDice(for: 1.0)                  // Move for 1.0 seconds
@@ -201,12 +200,15 @@ class ViewController: UIViewController {
             () -> Void in
             for i in 0..<self.dice.count {
                 self.dice[i].imageView.frame.origin.y = 1       // animate to top of super view
+                let lastX = Int(self.rollView.frame.width - self.dice[i].imageView.frame.width)
+                let xPos = CGFloat(Int.random(in: 8..<lastX))
+                self.dice[i].imageView.frame.origin.x = xPos   // animate random x
             }
         }) {_ in                                               // Wait until first animae completes, then do this
             
             // For now, these move to random y spots but fixed x to ensure no overlap
             // that needs to be fixed, but i need to think about it more first
-            let halfwayY = ((self.dice[0].imageView.superview?.frame.height)! / 2)
+            let halfwayY = (self.rollView.frame.height / 2)
             var currentDiceX: CGFloat = 8.0                     // position of x axis
             UIView.animate(withDuration: (animateDuration / 2.0), animations: {     // After up, move down
                 () -> Void in
@@ -247,7 +249,7 @@ class ViewController: UIViewController {
     
 }  // Class
 
-// MARK: -
+// MARK: - playsound
 // Added audio in here for now
 extension ViewController {
     
