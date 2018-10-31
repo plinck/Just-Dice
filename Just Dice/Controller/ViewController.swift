@@ -280,6 +280,7 @@ extension ViewController {
 }
 
 // MARK: -
+// PickerView - includes toolbar and texfield delegates
 // This extension is just for dealign with the picker view that picks how many dice
 // It acts kind of like a table view
 // This extension must also ensure that the user can not type into the text box -
@@ -304,6 +305,9 @@ extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate, UITextFi
         // Also must do ??? on story board
         numberDiceTexField.inputView = numberDicePickerView
         
+        // Customizations
+        numberDicePickerView.backgroundColor = .black
+        
         // Set default of 2 dice in picker view
         numberDicePickerView.selectRow(1, inComponent: 0, animated: true)
     }
@@ -312,6 +316,28 @@ extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate, UITextFi
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool  {
         self.resignFirstResponder()
         return false
+    }
+
+    // MARK: - Create the toolbar
+    func createToolbar() {
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        // Customizations
+        toolbar.barTintColor = .black
+        toolbar.tintColor = .white
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(ViewController.dismissKeyboard))
+        
+        toolbar.setItems([doneButton], animated: false)
+        toolbar.isUserInteractionEnabled = true
+        
+        numberDiceTexField.inputAccessoryView = toolbar
+    }
+    
+    // get rid of pickerview
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 
     func numberOfComponents(in numberDicePickerView: UIPickerView) -> Int {
@@ -336,26 +362,22 @@ extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate, UITextFi
             print("Bad Data, code error")
         }
     }
-}
-
-//MARK: - Toolbar
-extension ViewController {
     
-    // MARK: - Create the toolbar
-    func createToolbar() {
-        let toolbar = UIToolbar()
-        toolbar.sizeToFit()
+    // Customize each row of the picker view
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        var label: UILabel      // The label is each text label in picker view
         
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(ViewController.dismissKeyboard))
+        if let view = view as? UILabel {
+            label = view
+        } else {
+            label = UILabel()
+        }
         
-        toolbar.setItems([doneButton], animated: false)
-        toolbar.isUserInteractionEnabled = true
+        label.textColor = .white
+        label.textAlignment = .center
+        label.font = UIFont(name: "Helvetica Neue", size: 20)
+        label.text = pickerData[row]
         
-        numberDiceTexField.inputAccessoryView = toolbar
-    }
-    
-    // get rid of pickerview
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
+        return label
     }
 }
