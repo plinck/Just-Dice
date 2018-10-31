@@ -17,11 +17,9 @@ class ViewController: UIViewController {
     let rollViewTag = 100           // This is the tag so I can find the Roll View for placing the dice
     var rollView = UIView()         // The rollView to keep dice in
     var pickerData: [String] = ["1", "2", "3", "4", "5", "6", "7"]
-    var selectedNbrDice: Int = 1    // Number of dice picked to roll
+    var selectedNbrDice: Int = 2    // Number of dice picked to roll
     
-    @IBOutlet weak var pickerView: UIPickerView!
-    
-    
+    @IBOutlet weak var numberDiceTexField: UITextField!
     @IBOutlet weak var diceImageView1: UIImageView!
     @IBOutlet weak var diceImageView2: UIImageView!
     @IBOutlet weak var rollBtn: UIButton!
@@ -38,11 +36,7 @@ class ViewController: UIViewController {
         rollBtn.setImage(UIImage(named: "Roll Button Down.png"), for: .focused)
         rollBtn.setImage(UIImage(named: "Roll Button Down.png"), for: .selected)
         
-        // Picker Data
-        // Connect data:
-        self.pickerView.delegate = self
-        self.pickerView.dataSource = self
-        
+
         guard let myRollView =  view.viewWithTag(rollViewTag) else {
             print("Fatal Error, Cant find Roll View with tag:\(rollViewTag)")
             return
@@ -55,8 +49,9 @@ class ViewController: UIViewController {
         diceImageView1 = nil
         diceImageView2 = nil
 
-        // Set default of 2 dice in picker view
-        pickerView.selectRow(1, inComponent: 0, animated: true)
+        createPicker()
+        createToolbar()
+        
         createDice(2)                                       // Create the dice to roll
         moveDiceToOrigin()   // Make sure they are in proper spot relative to parent view
      }
@@ -285,26 +280,80 @@ extension ViewController {
 // MARK: -
 // This extension is just for dealign with the picker view that picks how many dice
 // It acts kind of like a table view
-extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+// This extension must also ensure that the user can not type into the text box -
+// they must only use the pickerView to edit the number of dice.  Therefore, I must
+// use the delegate method of the text input field to not allow them to change characters in text field
+extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
+    
+    // MARK: -
+    // Create the picker view and set the default value
+    func createPicker() {
+        
+        // Dont allow editing in UITextField - only picker view
+        self.numberDiceTexField.delegate = self
+
+        let numberDicePickerView = UIPickerView()
+        
+        // Connect data and delegate
+        numberDicePickerView.delegate = self
+        numberDicePickerView.dataSource = self
+        
+        // this makes the picker be the text input method vs typing in it
+        // Also must do ??? on story board
+        numberDiceTexField.inputView = numberDicePickerView
+        
+        // Set default of 2 dice in picker view
+        numberDicePickerView.selectRow(1, inComponent: 0, animated: true)
+    }
+    
+    // Text field delegate - make sure use can not edit insdie the text field - only picker view
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool  {
+        self.resignFirstResponder()
+        return false
+    }
+
+    func numberOfComponents(in numberDicePickerView: UIPickerView) -> Int {
         return 1
     }
 
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ numberDicePickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return pickerData.count
     }
 
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ numberDicePickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return pickerData[row]
     }
 
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ numberDicePickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if let nbrDice = Int(pickerData[row]) {
             selectedNbrDice = nbrDice
+            numberDiceTexField.text = String(selectedNbrDice)
             createDice(selectedNbrDice)                                       // Create the dice to roll
             moveDiceToOrigin()   // Make sure they are in proper spot relative to parent view
         } else {
             print("Bad Data, code error")
         }
+    }
+}
+
+//MARK: - Toolbar
+extension ViewController {
+    
+    // MARK: - Create the toolbar
+    func createToolbar() {
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(ViewController.dismissKeyboard))
+        
+        toolbar.setItems([doneButton], animated: false)
+        toolbar.isUserInteractionEnabled = true
+        
+        numberDiceTexField.inputAccessoryView = toolbar
+    }
+    
+    // get rid of pickerview
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

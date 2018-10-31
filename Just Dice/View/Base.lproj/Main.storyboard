@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -74,43 +74,53 @@
                                             <action selector="rollBtnPushingDown:" destination="BYZ-38-t0r" eventType="touchDown" id="pEh-Ry-ZnV"/>
                                         </connections>
                                     </button>
-                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kWo-P0-Wrf" userLabel="numberOfDice">
-                                        <rect key="frame" x="8" y="0.0" width="60" height="80"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="60" id="TxE-xb-dGG"/>
-                                        </constraints>
-                                    </pickerView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="4dq-oA-uoc" firstAttribute="centerX" secondItem="MOW-3S-lBH" secondAttribute="centerX" id="1ku-mG-ZoI"/>
                                     <constraint firstItem="4dq-oA-uoc" firstAttribute="top" secondItem="MOW-3S-lBH" secondAttribute="top" id="87e-sD-gRO"/>
                                     <constraint firstAttribute="bottom" secondItem="4dq-oA-uoc" secondAttribute="bottom" id="89i-S9-LYB"/>
-                                    <constraint firstItem="kWo-P0-Wrf" firstAttribute="top" secondItem="MOW-3S-lBH" secondAttribute="top" id="8uy-r7-bGI"/>
                                     <constraint firstAttribute="trailing" secondItem="hdU-6a-ES3" secondAttribute="trailing" constant="10" id="9p1-Lo-daV"/>
-                                    <constraint firstItem="kWo-P0-Wrf" firstAttribute="leading" secondItem="MOW-3S-lBH" secondAttribute="leading" constant="8" id="Ck8-C8-sR4"/>
                                     <constraint firstItem="hdU-6a-ES3" firstAttribute="top" secondItem="MOW-3S-lBH" secondAttribute="top" id="Ihf-bB-7M6"/>
                                     <constraint firstAttribute="height" constant="80" id="gwm-hg-wud"/>
                                     <constraint firstAttribute="bottom" secondItem="hdU-6a-ES3" secondAttribute="bottom" id="hRu-Pj-kmN"/>
-                                    <constraint firstAttribute="bottom" secondItem="kWo-P0-Wrf" secondAttribute="bottom" id="qTN-Ym-r43"/>
                                 </constraints>
                             </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ebe-py-hh0" userLabel="Upper Stack View">
+                                <rect key="frame" x="117.5" y="92" width="179" height="30"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of Dice:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qcx-Gp-vIR">
+                                        <rect key="frame" x="0.0" y="0.0" width="146" height="30"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="2" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="l67-iR-ING">
+                                        <rect key="frame" x="146" y="0.0" width="33" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.0055613736622035503" green="0.56950467824935913" blue="0.25686278939247131" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="xee-0M-j1g" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="110" id="5fZ-jR-B8h"/>
+                            <constraint firstItem="ebe-py-hh0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="GER-Xh-qa2"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="MOW-3S-lBH" secondAttribute="trailing" id="PeQ-uV-fUz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="xee-0M-j1g" secondAttribute="trailing" constant="10" id="WTs-No-amj"/>
                             <constraint firstItem="MOW-3S-lBH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="XAc-MV-mWH"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="xee-0M-j1g" secondAttribute="bottom" constant="90" id="bg9-lh-Vdy"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="MOW-3S-lBH" secondAttribute="bottom" id="pW8-yd-Pi5"/>
                             <constraint firstItem="xee-0M-j1g" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="uph-Nf-Ixz"/>
+                            <constraint firstItem="ebe-py-hh0" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="48" id="xxa-Xm-3zY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="diceImageView1" destination="fc2-S2-bsd" id="b70-qi-i0n"/>
                         <outlet property="diceImageView2" destination="ZiU-jp-2Yg" id="2Tn-Ij-cMI"/>
-                        <outlet property="pickerView" destination="kWo-P0-Wrf" id="iEw-3m-52n"/>
+                        <outlet property="numberDiceTexField" destination="l67-iR-ING" id="C9H-iy-Cg3"/>
                         <outlet property="rollBtn" destination="4dq-oA-uoc" id="sLt-aE-g95"/>
                         <outlet property="seeThruBtn" destination="hdU-6a-ES3" id="ASM-eg-87L"/>
                     </connections>
