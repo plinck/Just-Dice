@@ -16,7 +16,12 @@ class ViewController: UIViewController {
     var dice : [Dice] = []          // Collection of all the dice
     let rollViewTag = 100           // This is the tag so I can find the Roll View for placing the dice
     var rollView = UIView()         // The rollView to keep dice in
-
+    var pickerData: [String] = ["1", "2", "3", "4", "5", "6", "7"]
+    var selectedNbrDice: Int = 1    // Number of dice picked to roll
+    
+    @IBOutlet weak var pickerView: UIPickerView!
+    
+    
     @IBOutlet weak var diceImageView1: UIImageView!
     @IBOutlet weak var diceImageView2: UIImageView!
     @IBOutlet weak var rollBtn: UIButton!
@@ -32,6 +37,12 @@ class ViewController: UIViewController {
         rollBtn.setImage(UIImage(named: "Roll Button Down.png"), for: .highlighted)
         rollBtn.setImage(UIImage(named: "Roll Button Down.png"), for: .focused)
         rollBtn.setImage(UIImage(named: "Roll Button Down.png"), for: .selected)
+        
+        // Picker Data
+        // Connect data:
+        self.pickerView.delegate = self
+        self.pickerView.dataSource = self
+        
         guard let myRollView =  view.viewWithTag(rollViewTag) else {
             print("Fatal Error, Cant find Roll View with tag:\(rollViewTag)")
             return
@@ -39,10 +50,14 @@ class ViewController: UIViewController {
         rollView = myRollView
         
         // Get ride of th storyboard imageViews - just for design
-        diceImageView1.isHidden = true
-        diceImageView2.isHidden = true
+        diceImageView1.removeFromSuperview()
+        diceImageView2.removeFromSuperview()
+        diceImageView1 = nil
+        diceImageView2 = nil
 
-        createDice(5)                                       // Create the dice to roll
+        // Set default of 2 dice in picker view
+        pickerView.selectRow(1, inComponent: 0, animated: true)
+        createDice(2)                                       // Create the dice to roll
         moveDiceToOrigin()   // Make sure they are in proper spot relative to parent view
      }
     
@@ -87,6 +102,15 @@ class ViewController: UIViewController {
     // MARK: -
     // create all the dice
     func createDice(_ numberOfDice: Int) {
+        // Get ride of the imageViews first
+        for i in 0..<dice.count {
+            dice[i].imageView.removeFromSuperview()  // this removes it from your view hierarchy
+            // dice[i].imageView = nil;       // If it was a strong reference, make sure to `nil`
+        }
+        
+        // clear dice first
+        dice.removeAll()
+
         for _ in 0..<numberOfDice {
             // Create a UIView with an image for every dice created
             let imageView = UIImageView()
@@ -256,4 +280,31 @@ extension ViewController {
         }
     }
 
+}
+
+// MARK: -
+// This extension is just for dealign with the picker view that picks how many dice
+// It acts kind of like a table view
+extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerData.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return pickerData[row]
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if let nbrDice = Int(pickerData[row]) {
+            selectedNbrDice = nbrDice
+            createDice(selectedNbrDice)                                       // Create the dice to roll
+            moveDiceToOrigin()   // Make sure they are in proper spot relative to parent view
+        } else {
+            print("Bad Data, code error")
+        }
+    }
 }

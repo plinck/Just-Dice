@@ -63,7 +63,7 @@
                                         </connections>
                                     </button>
                                     <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4dq-oA-uoc">
-                                        <rect key="frame" x="10" y="0.0" width="80" height="80"/>
+                                        <rect key="frame" x="167" y="0.0" width="80" height="80"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="80" id="laW-Kt-TyQ"/>
                                         </constraints>
@@ -74,15 +74,24 @@
                                             <action selector="rollBtnPushingDown:" destination="BYZ-38-t0r" eventType="touchDown" id="pEh-Ry-ZnV"/>
                                         </connections>
                                     </button>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kWo-P0-Wrf" userLabel="numberOfDice">
+                                        <rect key="frame" x="8" y="0.0" width="60" height="80"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="60" id="TxE-xb-dGG"/>
+                                        </constraints>
+                                    </pickerView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="4dq-oA-uoc" firstAttribute="leading" secondItem="MOW-3S-lBH" secondAttribute="leading" constant="10" id="2ZT-ht-uis"/>
+                                    <constraint firstItem="4dq-oA-uoc" firstAttribute="centerX" secondItem="MOW-3S-lBH" secondAttribute="centerX" id="1ku-mG-ZoI"/>
                                     <constraint firstItem="4dq-oA-uoc" firstAttribute="top" secondItem="MOW-3S-lBH" secondAttribute="top" id="87e-sD-gRO"/>
                                     <constraint firstAttribute="bottom" secondItem="4dq-oA-uoc" secondAttribute="bottom" id="89i-S9-LYB"/>
+                                    <constraint firstItem="kWo-P0-Wrf" firstAttribute="top" secondItem="MOW-3S-lBH" secondAttribute="top" id="8uy-r7-bGI"/>
                                     <constraint firstAttribute="trailing" secondItem="hdU-6a-ES3" secondAttribute="trailing" constant="10" id="9p1-Lo-daV"/>
+                                    <constraint firstItem="kWo-P0-Wrf" firstAttribute="leading" secondItem="MOW-3S-lBH" secondAttribute="leading" constant="8" id="Ck8-C8-sR4"/>
                                     <constraint firstItem="hdU-6a-ES3" firstAttribute="top" secondItem="MOW-3S-lBH" secondAttribute="top" id="Ihf-bB-7M6"/>
                                     <constraint firstAttribute="height" constant="80" id="gwm-hg-wud"/>
                                     <constraint firstAttribute="bottom" secondItem="hdU-6a-ES3" secondAttribute="bottom" id="hRu-Pj-kmN"/>
+                                    <constraint firstAttribute="bottom" secondItem="kWo-P0-Wrf" secondAttribute="bottom" id="qTN-Ym-r43"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -101,6 +110,7 @@
                     <connections>
                         <outlet property="diceImageView1" destination="fc2-S2-bsd" id="b70-qi-i0n"/>
                         <outlet property="diceImageView2" destination="ZiU-jp-2Yg" id="2Tn-Ij-cMI"/>
+                        <outlet property="pickerView" destination="kWo-P0-Wrf" id="iEw-3m-52n"/>
                         <outlet property="rollBtn" destination="4dq-oA-uoc" id="sLt-aE-g95"/>
                         <outlet property="seeThruBtn" destination="hdU-6a-ES3" id="ASM-eg-87L"/>
                     </connections>
