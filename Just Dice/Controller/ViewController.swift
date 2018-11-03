@@ -30,8 +30,9 @@ class ViewController: UIViewController {
         // Round corners of Play Button
         rollBtn.layer.cornerRadius = 6
         seeThruBtn.layer.cornerRadius = 6
-        seeThruBtn.setTitle("Make Transparent", for: .normal)
-        rollBtn.setImage(UIImage(named: "Roll Button Up.png"), for: .normal)
+        seeThruBtn.setTitle("Hide Dice", for: .normal)
+        seeThruBtn.setImage(UIImage(named: "Make Invisible.png"), for: .normal)
+        rollBtn.setImage(UIImage(named: "Alt Roll.png"), for: .normal)
         rollBtn.setImage(UIImage(named: "Roll Button Down.png"), for: .highlighted)
         rollBtn.setImage(UIImage(named: "Roll Button Down.png"), for: .focused)
         rollBtn.setImage(UIImage(named: "Roll Button Down.png"), for: .selected)
@@ -62,13 +63,15 @@ class ViewController: UIViewController {
             for i in 0..<dice.count {
                 dice[i].imageView.alpha = 0.3
             }
-             seeThruBtn.setTitle("Make Opaque", for: .normal)
+            seeThruBtn.setTitle("Show Dice", for: .normal)
+            seeThruBtn.setImage(UIImage(named: "Make Opaque.png"), for: .normal)
         } else {
             transparentDiceMode = false
             for i in 0..<dice.count {
                 dice[i].imageView.alpha = 1.0
             }
-            seeThruBtn.setTitle("Make Transparent", for: .normal)
+            seeThruBtn.setTitle("Hide Dice", for: .normal)
+            seeThruBtn.setImage(UIImage(named: "Make Invisible.png"), for: .normal)
         }
     }
     
