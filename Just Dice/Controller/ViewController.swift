@@ -51,10 +51,16 @@ class ViewController: UIViewController {
 
         createPicker()
         createToolbar()
-        
-        createDice(2)                                       // Create the dice to roll
-        moveDiceToOrigin()   // Make sure they are in proper spot relative to parent view
+        selectedNbrDice = 2
      }
+    
+    // Dont do geometry related things in viewDidLoad
+    // You should not initialise UI geometry-related things in viewDidLoad,
+    // because the geometry of your view is not set at this point and the results will be unpredictable.
+    override func viewDidAppear(_ animated: Bool) {
+        createDice(selectedNbrDice)                 // Create the dice to roll
+        moveDiceToOrigin()                          // Make sure they are in proper spot relative to parent view
+    }
     
     // Make dice transparent or opaque
     @IBAction func seeThruBtn(_ sender: Any) {
@@ -99,7 +105,7 @@ class ViewController: UIViewController {
     // MARK: -
     // create all the dice
     func createDice(_ numberOfDice: Int) {
-        // Get ride of the imageViews first
+        // Get rid of the imageViews first
         for i in 0..<dice.count {
             dice[i].imageView.removeFromSuperview()  // this removes it from your view hierarchy
             // dice[i].imageView = nil;       // If it was a strong reference, make sure to `nil`
@@ -116,11 +122,12 @@ class ViewController: UIViewController {
             imageView.frame.size = CGSize(width: 120.0, height: 120.0)
             
             let idice = Dice(imageView: imageView)
+            self.rollView.addSubview(imageView)
+            
             idice.makeCorrectSize(containerView: rollView, maximumWidth: 120.0, totalDice: numberOfDice)
             self.dice.append(idice)
             
-            self.rollView.addSubview(imageView)
-        }
+           }
     }
     
     // MARK: -
@@ -162,7 +169,7 @@ class ViewController: UIViewController {
             imageView.startAnimating()
         }
         
-        // This rotates and changes the size and moves the view that contains the image
+        // This rotates and changes the size of the view that contains the image
         UIView.animate(withDuration: animateDuration, animations: {
             () -> Void in
             for i in 0..<dice.count {
@@ -202,9 +209,9 @@ class ViewController: UIViewController {
         UIView.animate(withDuration: (animateDuration / 2.0), animations: {
             () -> Void in
             for i in 0..<self.dice.count {
-                self.dice[i].imageView.frame.origin.y = 1       // animate to top of super view
+                self.dice[i].imageView.frame.origin.y = 8       // animate to top of super view
                 let lastX = Int(self.rollView.frame.width - self.dice[i].imageView.frame.width)
-                let xPos = CGFloat(Int.random(in: 8..<lastX))
+                let xPos = CGFloat(Int.random(in: 12..<lastX))
                 self.dice[i].imageView.frame.origin.x = xPos   // animate random x
             }
         }) {_ in                                               // Wait until first animae completes, then do this
@@ -212,13 +219,13 @@ class ViewController: UIViewController {
             // For now, these move to random y spots but fixed x to ensure no overlap
             // that needs to be fixed, but i need to think about it more first
             let halfwayY = (self.rollView.frame.height / 2)
-            var currentDiceX: CGFloat = 8.0                     // position of x axis
+            var currentDiceX: CGFloat = 12.0                     // position of x axis
             UIView.animate(withDuration: (animateDuration / 2.0), animations: {     // After up, move down
                 () -> Void in
                 for i in 0..<self.dice.count {
                     self.dice[i].imageView.frame.origin.y = CGFloat(Int.random(in: 50...Int(halfwayY)))
                     self.dice[i].imageView.frame.origin.x = currentDiceX
-                    currentDiceX += (self.dice[i].imageView.frame.width + 8.0)      // move over die
+                    currentDiceX += (self.dice[i].imageView.frame.width + 12.0)      // move over die
                 }
             }) // animate
         } // - in Completion Handler - i.e. After the first animation is complete
@@ -238,15 +245,14 @@ class ViewController: UIViewController {
     //
     // Move the dice back to their original position just above the bottom of their parent view
     func moveDiceToOrigin() {
-        let myRollAreaView = dice[0].imageView.superview
         let diceHeight = dice[0].imageView.frame.height
-        let parentViewBottomY = myRollAreaView!.frame.height           // Bottom of the view they are contained in
+        let parentViewBottomY = self.rollView.frame.height           // Bottom of the view they are contained in
         
-        var currentDiceX: CGFloat = 8.0
+        var currentDiceX: CGFloat = 12.0
         for i in 0..<self.dice.count {
-            self.dice[i].imageView.frame.origin.y = parentViewBottomY - (diceHeight)     //off bottom by di height
+            self.dice[i].imageView.frame.origin.y = parentViewBottomY - (diceHeight + 8.0)     //by di height
             self.dice[i].imageView.frame.origin.x = currentDiceX
-            currentDiceX += (self.dice[i].imageView.frame.width + 8.0)                    // move over die width
+            currentDiceX += (self.dice[i].imageView.frame.width + 12.0)                    // move over die width
         }
     }
     

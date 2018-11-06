@@ -68,18 +68,18 @@ class Dice {
         let ratio = imageView.frame.width / imageView.frame.height
         
         if parentViewWidth > parentViewHeight {
-            newWidth = parentViewHeight / CGFloat(totalDice) - 8.0
+            newWidth = parentViewHeight / CGFloat(totalDice) - 12.0
         } else {
-            newWidth = parentViewWidth / CGFloat(totalDice) - 8.0
+            newWidth = parentViewWidth / CGFloat(totalDice) - 12.0
         }
  
         if newWidth > maximumWidth {
             newWidth = maximumWidth                          // Dont want them huge
         }
         if newWidth < 12.0 {
-            newWidth = 12.0                          // Dont want them huge
+            newWidth = 12.0                          // Dont want them teeny
         }
-        let newHeight = newWidth / ratio                    // Its a square so this is not totallu=y necessary
+        let newHeight = newWidth / ratio                    // Its a square so this is not totally necessary
         
         imageView.frame.size = CGSize(width: newWidth, height: newHeight)
     }
