@@ -10,6 +10,10 @@ import UIKit
 import AVFoundation
 
 class ViewController: UIViewController {
+    let widthEdgeAdjustment: CGFloat = 12.0                 // Keep away from edge of view
+    let heightEdgeAdjustment: CGFloat = 8.0                 // Keep away from edge of view
+    let defaultDiceSize: CGFloat = 120.0
+
     var transparentDiceMode = false
     var player: AVAudioPlayer?
     
@@ -119,12 +123,12 @@ class ViewController: UIViewController {
             let imageView = UIImageView()
             
             imageView.image = UIImage(named:"dice6")
-            imageView.frame.size = CGSize(width: 120.0, height: 120.0)
+            imageView.frame.size = CGSize(width: defaultDiceSize, height: defaultDiceSize)
             
             let idice = Dice(imageView: imageView)
             self.rollView.addSubview(imageView)
             
-            idice.makeCorrectSize(containerView: rollView, maximumWidth: 120.0, totalDice: numberOfDice)
+            idice.makeCorrectSize(containerView: rollView, maximumWidth: defaultDiceSize, totalDice: numberOfDice)
             self.dice.append(idice)
             
            }
@@ -211,7 +215,7 @@ class ViewController: UIViewController {
             for i in 0..<self.dice.count {
                 self.dice[i].imageView.frame.origin.y = 8       // animate to top of super view
                 let lastX = Int(self.rollView.frame.width - self.dice[i].imageView.frame.width)
-                let xPos = CGFloat(Int.random(in: 12..<lastX))
+                let xPos = CGFloat(Int.random(in: Int(self.widthEdgeAdjustment)..<lastX))
                 self.dice[i].imageView.frame.origin.x = xPos   // animate random x
             }
         }) {_ in                                               // Wait until first animae completes, then do this
@@ -225,7 +229,7 @@ class ViewController: UIViewController {
                 for i in 0..<self.dice.count {
                     self.dice[i].imageView.frame.origin.y = CGFloat(Int.random(in: 50...Int(halfwayY)))
                     self.dice[i].imageView.frame.origin.x = currentDiceX
-                    currentDiceX += (self.dice[i].imageView.frame.width + 12.0)      // move over die
+                    currentDiceX += (self.dice[i].imageView.frame.width + self.widthEdgeAdjustment)      // move over die
                 }
             }) // animate
         } // - in Completion Handler - i.e. After the first animation is complete
@@ -250,9 +254,9 @@ class ViewController: UIViewController {
         
         var currentDiceX: CGFloat = 12.0
         for i in 0..<self.dice.count {
-            self.dice[i].imageView.frame.origin.y = parentViewBottomY - (diceHeight + 8.0)     //by di height
+            self.dice[i].imageView.frame.origin.y = parentViewBottomY - (diceHeight + self.heightEdgeAdjustment)     //by di height
             self.dice[i].imageView.frame.origin.x = currentDiceX
-            currentDiceX += (self.dice[i].imageView.frame.width + 12.0)                    // move over die width
+            currentDiceX += (self.dice[i].imageView.frame.width + self.widthEdgeAdjustment)   // move over di width
         }
     }
     

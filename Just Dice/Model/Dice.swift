@@ -17,6 +17,8 @@ class Dice {
     
     static var imageFaces: Array<UIImage> = []      // should just be one array for all dice
     
+    let widthAdjustment: CGFloat = 12.0
+    
     var diceIndexValue : Int = 0                  // 0-5 == 1-6
     var diceCurrentValue : Int = 1                // 1-6
     var imageView : UIImageView
@@ -68,16 +70,16 @@ class Dice {
         let ratio = imageView.frame.width / imageView.frame.height
         
         if parentViewWidth > parentViewHeight {
-            newWidth = parentViewHeight / CGFloat(totalDice) - 12.0
+            newWidth = parentViewHeight / CGFloat(totalDice) - widthAdjustment
         } else {
-            newWidth = parentViewWidth / CGFloat(totalDice) - 12.0
+            newWidth = parentViewWidth / CGFloat(totalDice) - widthAdjustment
         }
  
         if newWidth > maximumWidth {
             newWidth = maximumWidth                          // Dont want them huge
         }
-        if newWidth < 12.0 {
-            newWidth = 12.0                          // Dont want them teeny
+        if newWidth < widthAdjustment {
+            newWidth = widthAdjustment                          // Dont want them teeny
         }
         let newHeight = newWidth / ratio                    // Its a square so this is not totally necessary
         
