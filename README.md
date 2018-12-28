@@ -11,6 +11,8 @@ I use the current iOS development environment including Xcode 10, iOS 12 and Swi
 ![ScreenShot1](Just&#32;Dice/images/IMG_0771.jpg)
 ![ScreenShot1](Just&#32;Dice/images/IMG_0772.jpg)
 
+![ScreenShot1](Just&#32;Dice/images/JustDiceExample.gif)
+
 ![ScreenShot1](Just&#32;Dice/images/IMG_0773.jpg)
 ![ScreenShot1](Just&#32;Dice/images/IMG_0774.jpg)
 
